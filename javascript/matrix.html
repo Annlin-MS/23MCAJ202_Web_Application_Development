@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Symmetric Matrix Checker</title>
+    <link rel="stylesheet" href="matrix.css"> <!-- Link to external CSS -->
+</head>
+<body>
+
+    <h2>Check if a Matrix is Symmetric</h2>
+    
+    <!-- Input for matrix size -->
+    <p>Enter the size of the square matrix:</p>
+    <input type="number" id="size" min="1" max="5">
+    <button onclick="createMatrix()">Create Matrix</button>
+
+    <!-- Area where matrix input fields will be generated -->
+    <div id="matrixInput"></div>
+
+    <!-- Button to check symmetry (initially hidden) -->
+    <button id="checkButton" onclick="checkSymmetric()" style="display:none;">Check Symmetry</button>
+
+    <!-- Result Display -->
+    <p id="result"></p>
+
+    <script>
+        /**
+         * Function to generate input fields for matrix elements
+         */
+        function createMatrix() {
+            let size = document.getElementById("size").value; // Get matrix size
+            let matrixDiv = document.getElementById("matrixInput");
+            matrixDiv.innerHTML = "";  // Clear previous input fields
+
+            // Validate input size
+            if (size < 1) {
+                alert("Please enter a valid matrix size.");
+                return;
+            }
+
+            let table = "<p>Enter Matrix Values:</p><table>";
+            
+            // Generate input fields for the matrix
+            for (let i = 0; i < size; i++) {
+                for (let j = 0; j < size; j++) {
+                    table += `<input type="number" id="cell-${i}-${j}" required>`;
+                }
+                table += "<br>"; // Line break for better layout
+            }
+            table += "</table>";
+
+            matrixDiv.innerHTML = table;
+            document.getElementById("checkButton").style.display = "block"; // Show "Check Symmetry" button
+        }
+
+        /**
+         * Function to check if the matrix is symmetric
+         */
+        function checkSymmetric() {
+            let size = document.getElementById("size").value;
+            let matrix = [];
+
+            // Read matrix values from input fields
+            for (let i = 0; i < size; i++) {
+                matrix[i] = [];
+                for (let j = 0; j < size; j++) {
+                    matrix[i][j] = parseInt(document.getElementById(`cell-${i}-${j}`).value);
+                }
+            }
+
+            // Check for symmetry (A[i][j] == A[j][i])
+            let isSymmetric = true;
+            for (let i = 0; i < size; i++) {
+                for (let j = 0; j < size; j++) {
+                    if (matrix[i][j] !== matrix[j][i]) {
+                        isSymmetric = false;
+                        break;
+                    }
+                }
+                if (!isSymmetric) break;
+            }
+
+            // Display result
+            document.getElementById("result").innerText = isSymmetric 
+                ? "The matrix is Symmetric ✅" 
+                : "The matrix is NOT Symmetric ❌";
+        }
+    </script>
+
+</body>
+</html>

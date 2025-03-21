@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Face Interaction</title>
+    <style>
+        body {
+            text-align: center;
+            font-family: Arial, sans-serif;
+            margin-top: 50px;
+            transition: background-color 0.5s ease-in-out;
+        }
+        img {
+            width: 200px;
+            height: auto;
+            cursor: pointer;
+            transition: transform 0.3s, opacity 0.3s;
+        }
+        img:hover {
+            transform: scale(1.1);
+        }
+    </style>
+</head>
+<body>
+
+    <p>
+        <img id="face" src="image3.png" alt="sad face">
+    </p>
+    <p>
+        <label id="attention" style="font-size: xx-large;">Gimme some attention...</label>
+    </p>   
+    
+    <script>
+        let faceImage = document.getElementById('face');
+        let attentionText = document.getElementById('attention');
+
+        function makeHappy() {
+            faceImage.src = "images1.jpeg";  // Change to happy face
+            attentionText.innerHTML = "Thank you so much!!!";
+            document.body.style.backgroundColor = "#fffae6"; // Light yellow background
+        }
+
+        function makeSad() {
+            faceImage.src = "image3.png";  // Revert to original sad face
+            attentionText.innerHTML = "Gimme some attention...";
+            document.body.style.backgroundColor = "white"; // Reset background
+        }
+
+       
+        faceImage.addEventListener("mouseover", makeHappy);
+        faceImage.addEventListener("mouseout", makeSad);
+
+        faceImage.addEventListener("click", makeHappy);
+    </script>
+
+</body>
+</html>

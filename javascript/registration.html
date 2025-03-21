@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
+    <!-- Link external CSS file -->
+    <link rel="stylesheet" href="registration.css">
+</head>
+<body>
+    <div class="container">
+        <h2>Register</h2>
+        <p>Kindly fill in this form to register.</p>
+        
+        <!-- Registration Form -->
+        <form id="registerForm">
+            <fieldset>
+                <!-- Username Field -->
+                <label for="username">Username</label>
+                <input type="text" id="username" name="username" placeholder="Enter username" required>
+                
+                <!-- Email Field -->
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" placeholder="Enter email" required>
+                
+                <!-- Password Field -->
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" placeholder="Enter password" required 
+                    minlength="8" maxlength="16" autocomplete="off">
+                
+                <!-- Confirm Password Field -->
+                <label for="confirm-password">Confirm Password</label>
+                <input type="password" id="confirm-password" name="confirm-password" placeholder="Re-enter your password" required autocomplete="off">
+
+                <!-- Submit Button -->
+                <button type="submit">Register</button>
+            </fieldset>
+        </form>
+        
+        <!-- Link to login page for existing users -->
+        <p>Already have an account? <a href="login.html">Log in</a>.</p>
+    </div>
+
+    <script>
+        // Attach event listener to the form submission
+        document.getElementById("registerForm").addEventListener("submit", function(event) {
+            event.preventDefault();  // Prevents the default form submission behavior
+
+            // Get input field values
+            let username = document.getElementById("username").value.trim();
+            let email = document.getElementById("email").value.trim();
+            let password = document.getElementById("password").value;
+            let confirmPassword = document.getElementById("confirm-password").value;
+
+            // Regular expression patterns for validation
+            let emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+            let passwordPattern = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=]).{8,16}$/;
+
+            // Validation for username length
+            if (username.length < 3) {
+                alert("Username must be at least 3 characters long.");
+                return;
+            }
+
+            // Validation for email format
+            if (!emailPattern.test(email)) {
+                alert("Please enter a valid email address.");
+                return;
+            }
+
+            // Validation for password format
+            if (!passwordPattern.test(password)) {
+                alert("Password must be 8-16 characters long, include at least one uppercase letter, one number, and one special character (@#$%^&+=).");
+                return;
+            }
+
+            // Validation to check if passwords match
+            if (password !== confirmPassword) {
+                alert("Passwords do not match!");
+                return;
+            }
+
+            // If all validations pass, display success message
+            alert("Form submitted successfully! 🎉");
+        });
+    </script>
+</body>
+</html>
